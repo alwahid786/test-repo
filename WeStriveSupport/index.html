@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeStriVeSupport - Customer Support & AR Solutions</title>
+    <style>
+        :root {
+            --primary-blue: #0091d9;
+            --secondary-orange: #ff8d00;
+            --gradient-blue: #00a0e9;
+            --gradient-yellow: #ffed00;
+            --dark-bg: #101020;
+            --light-text: #ffffff;
+            --section-padding: 5rem 2rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: rgba(16, 16, 32, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-orange);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(to right, var(--gradient-blue), var(--gradient-yellow));
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            background: linear-gradient(rgba(16, 16, 32, 0.8), rgba(16, 16, 32, 0.8)), url('/api/placeholder/1800/900') center/cover no-repeat;
+        }
+        
+        .hero img {
+            max-width: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(to right, var(--gradient-blue), var(--gradient-yellow));
+            color: var(--dark-bg);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 145, 217, 0.5);
+        }
+        
+        section {
+            padding: var(--section-padding);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #b8b8b8;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gradient-blue), var(--gradient-yellow));
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+        
+        .packages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .package-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .package-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .package-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+        
+        .package-card .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .package-card ul {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .package-card ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .package-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-orange);
+        }
+        
+        .testimonials-container {
+            margin-top: 3rem;
+            position: relative;
+        }
+        
+        .testimonial {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-content::before,
+        .testimonial-content::after {
+            content: '"';
+            font-size: 3rem;
+            position: absolute;
+            color: rgba(0, 145, 217, 0.2);
+        }
+        
+        .testimonial-content::before {
+            top: -20px;
+            left: -10px;
+        }
+        
+        .testimonial-content::after {
+            bottom: -40px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-info {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+        
+        .contact-item i {
+            margin-right: 1rem;
+            color: var(--secondary-orange);
+        }
+        
+        .contact-form {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #b8b8b8;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--light-text);
+        }
+        
+        .form-control:focus {
+            outline: 2px solid var(--primary-blue);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--gradient-blue), var(--gradient-yellow));
+            color: var(--dark-bg);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 145, 217, 0.5);
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-orange);
+        }
+        
+        .social-links {
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: #b8b8b8;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--light-text);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(to bottom right, var(--gradient-blue), var(--gradient-yellow));
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="./assets/images/logo.png" alt="WeStriVeSupport Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#packages">Packages</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="mobile-menu-btn">☰</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <img src="./assets/images/logo.png" alt="WeStriVeSupport Logo">
+        <h1>WESTRIVESUPPORT</h1>
+        <p>Professional Customer Support & Accounts Receivable Solutions. We strive for your success.</p>
+        <a href="#packages" class="btn">Explore Our Packages</a>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>We provide comprehensive customer support and accounts receivable solutions tailored to your business needs.</p>
+        </div>
+        <div class="services">
+            <div class="service-card">
+                <h3>Customer Support</h3>
+                <p>Our expert team handles customer inquiries, resolves issues, and ensures customer satisfaction across multiple channels.</p>
+                <p>We employ industry best practices and cutting-edge technologies to deliver exceptional customer experiences.</p>
+            </div>
+            <div class="service-card">
+                <h3>Accounts Receivable</h3>
+                <p>We manage your invoicing, follow-ups, and payment collections to improve cash flow and reduce outstanding balances.</p>
+                <p>Our professional approach maintains positive customer relationships while effectively recovering funds.</p>
+            </div>
+            <div class="service-card">
+                <h3>Business Analysis</h3>
+                <p>We provide detailed reporting and analytics to help you understand customer trends and financial patterns.</p>
+                <p>Get valuable insights to make data-driven decisions that enhance your business operations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <div class="section-title">
+            <h2>Why Choose Us</h2>
+            <p>We combine technical expertise with exceptional customer service skills to deliver outstanding results.</p>
+        </div>
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Flexible Terms</h3>
+                    <p>Choose from 3, 6, or 9-month service periods with options for extended agreements.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Expert Team</h3>
+                    <p>Our staff brings years of experience in customer support and financial management.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Seamless Integration</h3>
+                    <p>We integrate smoothly with your existing systems and workflows.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Customized Solutions</h3>
+                    <p>Our services are tailored to meet your specific business requirements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages">
+        <div class="section-title">
+            <h2>Our Packages</h2>
+            <p>Choose the service duration that best fits your business needs.</p>
+        </div>
+        <div class="packages">
+            <div class="package-card">
+                <h3>3-Month Package</h3>
+                <p>Perfect for short-term projects or seasonal business needs</p>
+                <div class="price">Custom Pricing</div>
+                <ul>
+                    <li>Full customer support services</li>
+                    <li>AR management</li>
+                    <li>Weekly performance reports</li>
+                    <li>Dedicated account manager</li>
+                    <li>30-day notice for termination</li>
+                </ul>
+                <a href="#contact" class="btn">Get Started</a>
+            </div>
+            <div class="package-card">
+                <h3>6-Month Package</h3>
+                <p>Ideal for medium-term business requirements</p>
+                <div class="price">Custom Pricing</div>
+                <ul>
+                    <li>All 3-month features</li>
+                    <li>Enhanced reporting and analytics</li>
+                    <li>Strategic recommendations</li>
+                    <li>Priority support</li>
+                    <li>Discounted monthly rate</li>
+                </ul>
+                <a href="#contact" class="btn">Get Started</a>
+            </div>
+            <div class="package-card">
+                <h3>9-Month Package</h3>
+                <p>Best value for longer-term business solutions</p>
+                <div class="price">Custom Pricing</div>
+                <ul>
+                    <li>All 6-month features</li>
+                    <li>Quarterly business reviews</li>
+                    <li>Customized improvement plans</li>
+                    <li>Extended support hours</li>
+                    <li>Maximum discount applied</li>
+                </ul>
+                <a href="#contact" class="btn">Get Started</a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <p>Need a longer-term solution? We're happy to discuss custom agreements to meet your specific requirements.</p>
+            <a href="#contact" class="btn" style="margin-top: 1rem;">Contact Us For Custom Solutions</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-title">
+            <h2>About WeStriVeSupport</h2>
+            <p>Dedicated to helping businesses thrive through exceptional customer service and financial management.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center;">
+            <div>
+                <img src="/api/placeholder/500/300" alt="About WeStriVeSupport" style="width: 100%; border-radius: 10px;">
+            </div>
+            <div>
+                <p>Founded by industry experts, WeStriVeSupport combines technical expertise with a deep understanding of customer needs to deliver outstanding support and accounts receivable services.</p>
+                <p style="margin-top: 1rem;">Our mission is to help businesses like yours focus on growth and development while we handle the critical customer-facing and financial management aspects of your operation.</p>
+                <p style="margin-top: 1rem;">With our flexible engagement models, you can scale our services according to your business needs without long-term commitments.</p>
+                <a href="#contact" class="btn" style="margin-top: 1.5rem;">Learn More About Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <div class="section-title">
+            <h2>Client Testimonials</h2>
+            <p>Don't just take our word for it. Here's what our clients have to say about us.</p>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    WeStriVeSupport revolutionized our customer service operations. Their team quickly adapted to our business model and began resolving customer issues efficiently. Our customer satisfaction scores have improved by 35% since we started working with them.
+                </div>
+                <div class="testimonial-author">
+                    - Marketing Director, E-commerce Company
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Ready to elevate your customer support and AR management? Get in touch with us today.</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Our Information</h3>
+                <div class="contact-item">
+                    <i>📍</i>
+                    <div>
+                        <p>123 Business Avenue</p>
+                        <p>Suite 456</p>
+                        <p>New York, NY 10001</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i>📱</i>
+                    <div>
+                        <p>(555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i>✉️</i>
+                    <div>
+                        <p>info@westrivesupport.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i>🕒</i>
+                    <div>
+                        <p>Monday - Friday: 9am - 6pm</p>
+                        <p>Saturday: 10am - 2pm</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Interest</label>
+                        <select id="service" class="form-control" required>
+                            <option value="">Select a service</option>
+                            <option value="customer-support">Customer Support</option>
+                            <option value="ar">Accounts Receivable</option>
+                            <option value="both">Both Services</option>
+                            <option value="custom">Custom Solution</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <img src="/api/placeholder/120/60" alt="WeStriVeSupport Logo">
+        </div>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#packages">Packages</a>
+            <a href="#about">About</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="social-links">
+            <a href="#"><span>FB</span></a>
+            <a href="#"><span>TW</span></a>
+            <a href="#"><span>IN</span></a>
+            <a href="#"><span>LI</span></a>
+        </div>
+        <div class="copyright">
+            &copy; 2025 WeStriVeSupport. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const nav = document.querySelector('nav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
